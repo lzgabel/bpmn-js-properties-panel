@@ -6,6 +6,16 @@ All notable changes to [bpmn-js-properties-panel](https://github.com/bpmn-io/bpm
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.0.0-alpha.0
+
+* `FEAT`: rewrite project to new, [Preact](https://github.com/preactjs/preact)-based architecture
+
+### Breaking Changes
+
+* `PropertiesProvider#getTabs` is no longer used. Migrate to the new `PropertiesProvider#getGroups` API instead.
+* Previously exported entry factory functions are no longer available. Use components exported from
+  [`@bpmn-io/properties-panel`](https://github.com/bpmn-io/properties-panel) instead.
+
 ## 0.46.0
 
 * `FEAT`: graceful handle incompatible properties providers ([#482](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/482))
