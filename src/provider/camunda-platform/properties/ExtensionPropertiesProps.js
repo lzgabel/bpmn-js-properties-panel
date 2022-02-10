@@ -11,7 +11,9 @@ import {
 
 import {
   getExtensionElementsList
-} from '../utils/ExtensionElementsUtil';
+} from '../../../utils/ExtensionElementsUtil';
+
+import { without } from 'min-dash';
 
 
 export function ExtensionPropertiesProps({ element, injector }) {
@@ -63,25 +65,32 @@ function removeFactory({ commandStack, element, property }) {
       return;
     }
 
+    const values = without(properties.get('values'), property);
+
     commands.push({
-      cmd: 'properties-panel.update-businessobject-list',
+      cmd: 'element.updateModdleProperties',
       context: {
-        element: element,
-        currentObject: properties,
-        propertyName: 'values',
-        objectsToRemove: [ property ]
+        element,
+        moddleElement: properties,
+        properties: {
+          values
+        }
       }
     });
 
     // remove camunda:Properties if there are no properties anymore
-    if (properties.get('values').length === 1) {
+    if (!values.length) {
+      const businessObject = getBusinessObject(element),
+            extensionElements = businessObject.get('extensionElements');
+
       commands.push({
-        cmd: 'properties-panel.update-businessobject-list',
+        cmd: 'element.updateModdleProperties',
         context: {
-          element: element,
-          currentObject: getBusinessObject(element).get('extensionElements'),
-          propertyName: 'values',
-          objectsToRemove: [ properties ]
+          element,
+          moddleElement: extensionElements,
+          properties: {
+            values: without(extensionElements.get('values'), properties)
+          }
         }
       });
     }
@@ -92,7 +101,6 @@ function removeFactory({ commandStack, element, property }) {
 
 function addFactory({ bpmnFactory, commandStack, element }) {
   return function(event) {
-
     event.stopPropagation();
 
     let commands = [];
@@ -111,10 +119,10 @@ function addFactory({ bpmnFactory, commandStack, element }) {
       );
 
       commands.push({
-        cmd: 'properties-panel.update-businessobject',
+        cmd: 'element.updateModdleProperties',
         context: {
-          element: element,
-          businessObject: businessObject,
+          element,
+          moddleElement: businessObject,
           properties: { extensionElements }
         }
       });
@@ -131,12 +139,13 @@ function addFactory({ bpmnFactory, commandStack, element }) {
       }, parent, bpmnFactory);
 
       commands.push({
-        cmd: 'properties-panel.update-businessobject-list',
+        cmd: 'element.updateModdleProperties',
         context: {
-          element: element,
-          currentObject: extensionElements,
-          propertyName: 'values',
-          objectsToAdd: [ properties ]
+          element,
+          moddleElement: extensionElements,
+          properties: {
+            values: [ ...extensionElements.get('values'), properties ]
+          }
         }
       });
     }
@@ -146,18 +155,18 @@ function addFactory({ bpmnFactory, commandStack, element }) {
 
     // (4) add property to list
     commands.push({
-      cmd: 'properties-panel.update-businessobject-list',
+      cmd: 'element.updateModdleProperties',
       context: {
-        element: element,
-        currentObject: properties,
-        propertyName: 'values',
-        objectsToAdd: [ property ]
+        element,
+        moddleElement: properties,
+        properties: {
+          values: [ ...properties.get('values'), property ]
+        }
       }
     });
 
     // (5) commit all updates
     commandStack.execute('properties-panel.multi-command-executor', commands);
-
   };
 }
 

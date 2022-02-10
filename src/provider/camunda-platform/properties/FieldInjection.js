@@ -19,7 +19,7 @@ export default function FieldInjection(props) {
     field
   } = props;
 
-  const entries = [{
+  const entries = [ {
     id: idPrefix + '-name',
     component: <NameProperty idPrefix={ idPrefix } element={ element } field={ field } />
   },{
@@ -28,7 +28,7 @@ export default function FieldInjection(props) {
   },{
     id: idPrefix + '-value',
     component: <ValueProperty idPrefix={ idPrefix } element={ element } field={ field } />
-  }];
+  } ];
 
   return entries;
 }
@@ -45,9 +45,9 @@ function NameProperty(props) {
         debounce = useService('debounceInput');
 
   const setValue = (value) => {
-    commandStack.execute('properties-panel.update-businessobject', {
-      element: element,
-      businessObject: field,
+    commandStack.execute('element.updateModdleProperties', {
+      element,
+      moddleElement: field,
       properties: {
         name: value
       }
@@ -83,14 +83,14 @@ function TypeProperty(props) {
   };
 
   const setValue = (value) => {
-    let props = Object.assign({}, DEFAULT_PROPS);
+    const properties = Object.assign({}, DEFAULT_PROPS);
 
-    props[value] = '';
+    properties[ value ] = '';
 
-    commandStack.execute('properties-panel.update-businessobject', {
-      element: element,
-      businessObject: field,
-      properties: props
+    commandStack.execute('element.updateModdleProperties', {
+      element,
+      moddleElement: field,
+      properties
     });
   };
 
@@ -131,14 +131,15 @@ function ValueProperty(props) {
     const type = determineType(field);
 
     // (2) set property accordingly
-    let props = Object.assign({}, DEFAULT_PROPS);
-    props[type] = value || '';
+    const properties = Object.assign({}, DEFAULT_PROPS);
+
+    properties[ type ] = value || '';
 
     // (3) execute the update command
-    commandStack.execute('properties-panel.update-businessobject', {
-      element: element,
-      businessObject: field,
-      properties: props
+    commandStack.execute('element.updateModdleProperties', {
+      element,
+      moddleElement: field,
+      properties
     });
   };
 

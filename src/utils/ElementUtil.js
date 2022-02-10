@@ -16,7 +16,10 @@ import {
  */
 export function createElement(elementType, properties, parent, factory) {
   const element = factory.create(elementType, properties);
-  element.$parent = parent;
+
+  if (parent) {
+    element.$parent = parent;
+  }
 
   return element;
 }
@@ -25,7 +28,7 @@ export function createElement(elementType, properties, parent, factory) {
  * generate a semantic id with given prefix
  */
 export function nextId(prefix) {
-  const ids = new Ids([32,32,1]);
+  const ids = new Ids([ 32,32,1 ]);
 
   return ids.nextPrefixed(prefix);
 }

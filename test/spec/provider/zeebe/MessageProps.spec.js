@@ -30,7 +30,7 @@ import zeebeModdleExtensions from 'zeebe-bpmn-moddle/resources/zeebe';
 
 import {
   getExtensionElementsList
-} from 'src/provider/zeebe/utils/ExtensionElementsUtil';
+} from 'src/utils/ExtensionElementsUtil';
 
 import {
   getMessage
@@ -238,7 +238,7 @@ describe('provider/zeebe - MessageProps', function() {
       // given
       const elements = [
         elementRegistry.get('StartEvent_1'),
-        elementRegistry.get('StartEvent_3')];
+        elementRegistry.get('StartEvent_3') ];
 
       for (const element of elements) {
 

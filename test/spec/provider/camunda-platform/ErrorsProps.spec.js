@@ -17,7 +17,7 @@ import {
 
 import {
   getExtensionElementsList
-} from 'src/provider/camunda-platform/utils/ExtensionElementsUtil';
+} from 'src/utils/ExtensionElementsUtil';
 
 import CoreModule from 'bpmn-js/lib/core';
 import SelectionModule from 'diagram-js/lib/features/selection';
@@ -379,28 +379,6 @@ describe('provider/camunda-platform - ErrorProps', function() {
         const fieldInjections = getExtensionElementsList(businessObject, 'camunda:ErrorEventDefinition');
 
         expect(fieldInjections).to.have.length(1);
-      }));
-
-
-      it('should remove extensionElements if not other values exist', inject(async function(elementRegistry, selection) {
-
-        // given
-        const serviceTask = elementRegistry.get('ServiceTask_ErrorEventDefinition'),
-              businessObject = getServiceTaskLikeBusinessObject(serviceTask);
-
-        await act(() => {
-          selection.select(serviceTask);
-        });
-
-        const removeErrorButton = getRemoveFieldButton(container, 0);
-
-        // when
-        await clickInput(removeErrorButton);
-
-        // then
-        const extensionElements = businessObject.get('extensionElements');
-
-        expect(extensionElements).to.be.undefined;
       }));
 
     });

@@ -44,7 +44,8 @@ export function getConcreteType(element) {
     if (isEventSubProcess(element)) {
       type = `Event${type}`;
     } else {
-      type = `${isExpanded(element) ? 'Expanded' : 'Collapsed'}${type}`;
+      const expanded = isExpanded(element) && !isPlane(element);
+      type = `${expanded ? 'Expanded' : 'Collapsed'}${type}`;
     }
   }
 
@@ -134,4 +135,14 @@ function isConditionalFlow(element) {
   }
 
   return businessObject.conditionExpression && is(sourceBusinessObject, 'bpmn:Activity');
+}
+
+
+// helpers //////////
+function isPlane(element) {
+
+  // Backwards compatibility for bpmn-js<8
+  const di = element && (element.di || getBusinessObject(element).di);
+
+  return is(di, 'bpmndi:BPMNPlane');
 }

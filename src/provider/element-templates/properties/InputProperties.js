@@ -15,6 +15,8 @@ import { without } from 'min-dash';
 
 import { createElement } from '../../../utils/ElementUtil';
 
+import { PropertyDescription } from '../components/PropertyDescription';
+
 import { createInputParameter } from '../CreateHelper';
 
 
@@ -89,7 +91,9 @@ function Description(props) {
   } = props;
 
   return <div class="bio-properties-panel-entry" data-entry-id={ id }>
-    <div class="bio-properties-panel-description">{ text }</div>
+    <div class="bio-properties-panel-description">
+      <PropertyDescription description={ text } />
+    </div>
   </div>;
 }
 
@@ -203,7 +207,7 @@ function createExtensionElements(businessObject, bpmnFactory) {
 function createInputOutput(binding, value, bpmnFactory, extensionElements) {
   const inputParameter = createInputParameter(binding, value, bpmnFactory);
   const inputOutput = createElement('camunda:InputOutput', {
-    inputParameters: [inputParameter],
+    inputParameters: [ inputParameter ],
     outputParameters: []
   }, extensionElements, bpmnFactory);
 

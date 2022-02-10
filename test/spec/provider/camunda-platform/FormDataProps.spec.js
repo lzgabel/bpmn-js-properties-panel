@@ -18,7 +18,7 @@ import {
 
 import {
   getExtensionElementsList
-} from 'src/provider/camunda-platform/utils/ExtensionElementsUtil';
+} from 'src/utils/ExtensionElementsUtil';
 
 import CoreModule from 'bpmn-js/lib/core';
 import SelectionModule from 'diagram-js/lib/features/selection';
@@ -326,28 +326,6 @@ describe('provider/camunda-platform - FormDataProps', function() {
       // then
       expect(getFormData(task)).to.not.exist;
       expect(getExtensionElementsList(getBusinessObject(task))).to.have.length(1);
-    }));
-
-
-    it('should remove formData - removing extensionElements', inject(async function(elementRegistry, selection) {
-
-      // given
-      const event = elementRegistry.get('StartEvent_1');
-
-      await act(() => {
-        selection.select(event);
-      });
-
-      // assume
-      expect(getBusinessObject(event).extensionElements).to.exist;
-
-      // when
-      const formDataGroup = domQuery('div[data-group-id=group-CamundaPlatform__FormData]', container);
-      const formFieldRemoveButton = domQueryAll('.bio-properties-panel-remove-entry', formDataGroup)[0];
-      clickInput(formFieldRemoveButton);
-
-      // then
-      expect(getBusinessObject(event).extensionElements).not.to.exist;
     }));
 
   });

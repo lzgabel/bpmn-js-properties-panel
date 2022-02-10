@@ -1,10 +1,12 @@
+> Extending the properties panel changed significantly with `bpmn-js-properties-panel>=1`. For the `0.x` version of the library, check out [the 0.x branch](https://github.com/bpmn-io/bpmn-js-properties-panel/tree/0.x). Read more on the changes [in the changelog](https://github.com/bpmn-io/bpmn-js-properties-panel/blob/master/CHANGELOG.md#100-alpha0).
+
 # bpmn-js-properties-panel
 
 [![CI](https://github.com/bpmn-io/bpmn-js-properties-panel/workflows/CI/badge.svg)](https://github.com/bpmn-io/bpmn-js-properties-panel/actions?query=workflow%3ACI)
 
 A properties panel extension for [bpmn-js](https://github.com/bpmn-io/bpmn-js) that adds the ability to edit technical properties (generic and [Camunda](https://camunda.com)).
 
-[![bpmn-js-properties-panel screenshot](https://raw.githubusercontent.com/bpmn-io/bpmn-js-properties-panel/master/docs/screenshot.png "Screenshot of the bpmn-js modeler with properties panel")](https://github.com/bpmn-io/bpmn-js-examples/tree/master/properties-panel)
+[![bpmn-js-properties-panel screenshot](./docs/screenshot.png "Screenshot of the bpmn-js modeler with properties panel")](https://github.com/bpmn-io/bpmn-js-examples/tree/master/properties-panel)
 
 
 ## Features
@@ -37,7 +39,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule,
-} from '@bpmn-io/bpmn-properties-panel';
+} from 'bpmn-js-properties-panel';
 
 const modeler = new BpmnModeler({
   container: '#canvas',

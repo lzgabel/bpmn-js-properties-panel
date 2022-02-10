@@ -159,7 +159,7 @@ function canHaveProcessVariables(element) {
   const businessObject = getBusinessObject(element);
 
   return (
-    isAny(element, ['bpmn:Process', 'bpmn:SubProcess']) ||
+    isAny(element, [ 'bpmn:Process', 'bpmn:SubProcess' ]) ||
     (is(element, 'bpmn:Participant') && businessObject.get('processRef'))
   );
 }
@@ -185,11 +185,13 @@ function getRootElement(element) {
 }
 
 function getScope(element) {
+  const bo = getBusinessObject(element);
+
   if (is(element, 'bpmn:Participant')) {
-    return getBusinessObject(element).processRef.id;
+    return bo.processRef.id;
   }
 
-  return element.id;
+  return bo.id;
 }
 
 function sortByName(variables) {

@@ -13,13 +13,13 @@ export default function ExtensionProperty(props) {
     property
   } = props;
 
-  const entries = [{
+  const entries = [ {
     id: idPrefix + '-name',
     component: <NameProperty idPrefix={ idPrefix } element={ element } property={ property } />
   },{
     id: idPrefix + '-value',
     component: <ValueProperty idPrefix={ idPrefix } element={ element } property={ property } />
-  }];
+  } ];
 
   return entries;
 }
@@ -36,9 +36,9 @@ function NameProperty(props) {
   const debounce = useService('debounceInput');
 
   const setValue = (value) => {
-    commandStack.execute('properties-panel.update-businessobject', {
+    commandStack.execute('element.updateModdleProperties', {
       element,
-      businessObject: property,
+      moddleElement: property,
       properties: {
         name: value
       }
@@ -71,11 +71,11 @@ function ValueProperty(props) {
   const debounce = useService('debounceInput');
 
   const setValue = (value) => {
-    commandStack.execute('properties-panel.update-businessobject', {
+    commandStack.execute('element.updateModdleProperties', {
       element,
-      businessObject: property,
+      moddleElement: property,
       properties: {
-        value: value
+        value
       }
     });
   };

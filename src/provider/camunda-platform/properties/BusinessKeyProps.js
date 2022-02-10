@@ -7,7 +7,7 @@ import { SelectEntry, isSelectEntryEdited } from '@bpmn-io/properties-panel';
 
 import {
   getExtensionElementsList
-} from '../utils/ExtensionElementsUtil';
+} from '../../../utils/ExtensionElementsUtil';
 
 import {
   useService
@@ -47,9 +47,9 @@ function BusinessKey(props) {
   };
 
   const setValue = (value) => {
-    commandStack.execute('properties-panel.update-businessobject', {
-      element: element,
-      businessObject: formData,
+    commandStack.execute('element.updateModdleProperties', {
+      element,
+      moddleElement: formData,
       properties: {
         'camunda:businessKey': value
       }

@@ -139,7 +139,7 @@ describe('provider/element-templates - Validator', function() {
       // then
       expect(errors(templates)).to.have.length(6);
 
-      expect(errors(templates)[0]).to.eql('template(id: <foo>, name: <Foo>): unsupported element template schema version <99.99.99>. Your installation only supports up to version <'+ ElementTemplateSchemaVersion + '>. Please update your installation');
+      expect(errors(templates)[0]).to.eql('template(id: <foo>, name: <Foo>): unsupported element template schema version <99.99.99>. Your installation only supports up to version <' + ElementTemplateSchemaVersion + '>. Please update your installation');
     });
 
   });
@@ -593,6 +593,43 @@ describe('provider/element-templates - Validator', function() {
       expect(valid(templates)).to.have.length(templateDescriptor.length);
     });
 
+
+    describe('grouping', function() {
+
+      it('should accept groups', function() {
+
+        // given
+        const templates = new Validator();
+
+        const templateDescriptor = require('./fixtures/groups');
+
+        // when
+        templates.addAll(templateDescriptor);
+
+        // then
+        expect(errors(templates)).to.be.empty;
+
+        expect(valid(templates)).to.have.length(templateDescriptor.length);
+      });
+
+
+      it('should not accept missing group id', function() {
+
+        // given
+        const templates = new Validator();
+
+        const templateDescriptor = require('./fixtures/error-groups-missing-id');
+
+        // when
+        templates.addAll(templateDescriptor);
+
+        // then
+        expect(errors(templates)).to.contain('template(id: <example.com.missingGroupId>, name: <Missing group id>): missing id for group "0"');
+
+        expect(valid(templates)).to.be.empty;
+      });
+
+    });
 
   });
 });

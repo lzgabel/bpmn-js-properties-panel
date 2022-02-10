@@ -19,7 +19,7 @@ import {
 
 import {
   getExtensionElementsList
-} from 'src/provider/camunda-platform/utils/ExtensionElementsUtil';
+} from 'src/utils/ExtensionElementsUtil';
 
 import CoreModule from 'bpmn-js/lib/core';
 import SelectionModule from 'diagram-js/lib/features/selection';
@@ -684,7 +684,7 @@ describe('provider/camunda-platform - FormField', function() {
         expect(constraintEntries).to.eql([
           'Constraint3',
           'Constraint1',
-          'Constraint2']);
+          'Constraint2' ]);
       }));
 
     });
@@ -864,7 +864,7 @@ describe('provider/camunda-platform - FormField', function() {
         expect(propertiesEntries).to.eql([
           'Property1',
           'Property2',
-          'Property3']);
+          'Property3' ]);
       }));
 
     });
