@@ -197,14 +197,32 @@ function CompletionCondition(props) {
     }
   };
 
+  const validate = (value) => {
+    if (value && /^(?!=)/.test(value)) {
+      return translate('The completion condition expects FEEL-expression to be prefixed by \'=\'');
+    }
+  };
+
   return TextFieldEntry({
     element,
     id: 'multiInstance-completionCondition',
     label: translate('Completion condition'),
     getValue,
     setValue,
+    validate,
+    description: getCompletionConditionDescription(translate),
     debounce
   });
+}
+
+function getCompletionConditionDescription(translate) {
+  return (<div>
+      <p>{ translate('Each parent instance of the created instance will have following variables.') }</p>
+  <ul>
+  <li><code>nrOfElementInstances</code> - { translate('the total number of element instances') }</li>
+  <li><code>nrOfCompletedElementInstances</code> - { translate('the number of already completed element instances.') }</li>
+  </ul>
+  </div>);
 }
 
 // helper ///////////////////////

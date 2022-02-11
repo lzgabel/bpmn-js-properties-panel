@@ -12,3 +12,4 @@ export { OutputProps } from './OutputProps';
 export { TargetProps } from './TargetProps';
 export { TaskDefinitionProps } from './TaskDefinitionProps';
 export { TimerProps } from './TimerProps';
+export { CandidateStarterProps } from './CandidateStarterProps';
