@@ -14,7 +14,8 @@ import {
   OutputProps,
   TargetProps,
   TaskDefinitionProps,
-  TimerProps
+  TimerProps,
+  CandidateStarterProps,
 } from './properties';
 import { isMessageEndEvent, isMessageThrowEvent } from './utils/ZeebeServiceTaskUtil';
 
@@ -24,6 +25,7 @@ const ZEEBE_GROUPS = [
   BusinessRuleImplementationGroup,
   CalledDecisionGroup,
   TaskDefinitionGroup,
+  CandidateStarterGroup,
   AssignmentDefinitionGroup,
   FormGroup,
   ConditionGroup,
@@ -96,6 +98,20 @@ function TaskDefinitionGroup(element) {
 
   return group.entries.length ? group : null;
 }
+
+
+function CandidateStarterGroup(element) {
+  const group = {
+    label: 'Candidate Starter Configuration',
+    id: 'candidateStarter',
+    component: Group,
+    entries: [
+      ...CandidateStarterProps({ element })
+    ]
+  };
+  return group.entries.length ? group : null;
+}
+
 
 function InputGroup(element, injector) {
   const group = {
